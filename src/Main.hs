@@ -21,7 +21,7 @@ todoList_ st = div_ $ do
 
 todoItem :: ReactView (Int, Todo)
 todoItem = defineView "todo item" $ \(id, todo) -> 
-  li_ [] (elemText . tdTitle $ todo)
+  li_ ["key" @= id] (elemText . tdTitle $ todo)
 
 todoItem_ :: (Int, Todo) -> ReactElementM eventHandler ()
 todoItem_ todo = viewWithKey todoItem (fst todo) todo mempty
@@ -50,4 +50,4 @@ instance StoreData TodoState where
     return (TodoState (filter ((int /=) . fst) todos))
 
 todoStore :: ReactStore TodoState
-todoStore = mkStore $ TodoState []
+todoStore = mkStore $ TodoState [(1, Todo "asdf" False)]
